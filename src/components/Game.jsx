@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Gallery from "./gallery";
+import { Win, Lose } from "./Result";
 import Header from "./Header";
 export default function Game() {
   const [pokemons, setPokemons] = useState([]);
@@ -7,7 +8,8 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [memorised, setMemorised] = useState([]);
-
+  const [win, setWin] = useState(false);
+  const [lose, setLose] = useState(false);
   useEffect(() => {
     async function pokemons() {
       try {
@@ -36,13 +38,27 @@ export default function Game() {
     if (alreadyMemorised) {
       setScore(0);
       setMemorised([]);
+      setLose(true);
     } else {
       setScore((prev) => prev + 1);
       setMemorised([...memorised, clickedEl]);
       if (score === bestScore) {
         setBestScore((prev) => prev + 1);
       }
+      if (score == 11) {
+        setWin(true);
+        setScore(0);
+        setMemorised([]);
+      }
     }
+  }
+
+  function again() {
+    setWin(false);
+  }
+
+  function tryAgain() {
+    setLose(false);
   }
 
   function shuffle() {
@@ -57,21 +73,34 @@ export default function Game() {
 
     setPokemons(copyMons);
   }
-
-  return (
-    <>
-      {loading ? (
-        <h2>Loading...</h2>
-      ) : (
-        <>
-          <Header score={score} bestScore={bestScore} />
-          <Gallery
-            details={pokemons}
-            handleShuffle={shuffle}
-            handleScore={handleScores}
-          />
-        </>
-      )}
-    </>
-  );
+  if (win) {
+    return (
+      <>
+        <Win again={again} />
+      </>
+    );
+  } else if (lose) {
+    return (
+      <>
+        <Lose again={tryAgain} />
+      </>
+    );
+  } else {
+    return (
+      <>
+        {loading ? (
+          <h2>Loading...</h2>
+        ) : (
+          <>
+            <Header score={score} bestScore={bestScore} />
+            <Gallery
+              details={pokemons}
+              handleShuffle={shuffle}
+              handleScore={handleScores}
+            />
+          </>
+        )}
+      </>
+    );
+  }
 }
