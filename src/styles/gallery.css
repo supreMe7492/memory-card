@@ -1,0 +1,58 @@
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  margin: 2em;
+}
+
+.card {
+  border: 2px solid #ef233c;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  min-height: 17em;
+  max-width: 18em;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  align-items: center;
+  transition: border 250ms ease-in;
+}
+.cardImg {
+  height: 80%;
+  width: 100%;
+}
+.pokeName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a759f;
+  color: white;
+  height: 20%;
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+  transition: background-color 250ms ease-in;
+}
+
+.card:hover {
+  border: 3px solid #004e98;
+}
+.card:hover .pokeName {
+  background-color: #ef233c;
+}
+
+@media (max-width: 1000px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (hover: none) {
+  .card:hover {
+    border: 2px solid #ef233c;
+  }
+  .card:hover .pokeName {
+    background-color: #1a759f;
+  }
+}

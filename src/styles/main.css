@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  font-family: "Caveat", sans-serif;
+  padding: 0;
+} /* red : e63946,ef233c,d90429
+blue: 118ab2,1a759f,004e98 */
+body {
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(114, 125, 115);
+}
+#root {
+  height: 100%;
+  width: 100%;
+}
